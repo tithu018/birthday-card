@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { useState, useRef, useEffect } from 'react';
 
 const MusicPlayer = () => {
+  const baseUrl = import.meta.env.BASE_URL;
   const [isMuted, setIsMuted] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
   const [needsUserStart, setNeedsUserStart] = useState(false);
@@ -66,7 +67,7 @@ const MusicPlayer = () => {
         ref={audioRef}
         loop
         preload="auto"
-        src= "/images/mathu.mpeg"
+        src={`${baseUrl}images/mathu.mpeg`}
       />
 
       <motion.button

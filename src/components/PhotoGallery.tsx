@@ -3,26 +3,27 @@ import { ChevronLeft, ChevronRight, Image } from 'lucide-react';
 import { useState } from 'react';
 
 const PhotoGallery = () => {
+  const baseUrl = import.meta.env.BASE_URL;
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const photos = [
     {
-      url:  "/images/mathu4.jpeg",
+      url: `${baseUrl}images/mathu4.jpeg`,
       caption: 'Our Beautiful Moments',
       fit: 'contain',
     },
     {
-      url:  "/images/mathu3.jpeg",
+      url: `${baseUrl}images/mathu3.jpeg`,
       caption: 'Together Forever',
       fit: 'contain',
     },
     {
-      url:  "/images/mathu2.jpeg",
+      url: `${baseUrl}images/mathu2.jpeg`,
       caption: 'Love & Laughter',
       fit: 'contain',
     },
     {
-      url: "/images/mathu1.jpeg",
+      url: `${baseUrl}images/mathu1.jpeg`,
       caption: 'You & Me',
       fit: 'contain',
     },
