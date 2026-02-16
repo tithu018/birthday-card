@@ -16,26 +16,46 @@ const MusicPlayer = () => {
     audio.volume = 0.3;
     audio.muted = true;
 
+    const startAudio = async () => {
+      try {
+        await audio.play();
+        audio.muted = false;
+        setIsMuted(false);
+        setIsPlaying(true);
+        setNeedsUserStart(false);
+      } catch {
+        setIsPlaying(false);
+        setNeedsUserStart(true);
+      }
+    };
+
     const handlePlay = () => setIsPlaying(true);
     const handlePause = () => setIsPlaying(false);
 
     audio.addEventListener('play', handlePlay);
     audio.addEventListener('pause', handlePause);
 
-    audio
-      .play()
-      .then(() => {
-        setIsPlaying(true);
-        setNeedsUserStart(false);
-      })
-      .catch(() => {
-        setIsPlaying(false);
-        setNeedsUserStart(true);
-      });
+    audio.play().catch(() => {
+      setIsPlaying(false);
+      setNeedsUserStart(true);
+    });
+
+    const handleFirstUserGesture = () => {
+      startAudio();
+    };
+
+    window.addEventListener('pointerdown', handleFirstUserGesture, {
+      once: true,
+    });
+    window.addEventListener('keydown', handleFirstUserGesture, {
+      once: true,
+    });
 
     return () => {
       audio.removeEventListener('play', handlePlay);
       audio.removeEventListener('pause', handlePause);
+      window.removeEventListener('pointerdown', handleFirstUserGesture);
+      window.removeEventListener('keydown', handleFirstUserGesture);
     };
   }, []);
 
@@ -67,6 +87,7 @@ const MusicPlayer = () => {
         ref={audioRef}
         loop
         preload="auto"
+        playsInline
         src={`${baseUrl}images/mathu.mpeg`}
       />
 
